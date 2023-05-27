@@ -1,5 +1,0 @@
-Name1,Date1,Date2,Crapp
-Frank Rogers,1944-03-01,1999-09-09,xxx
-Ginger Rogers,1933-12-07,2005-05-05,yyy
-Fred Rogers,1927-05-12,1999-12-12,zzz
-Wilma Flintstone,1955-07-04,2000-01-01,rcc
