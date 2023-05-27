@@ -1,0 +1,27 @@
+ROUTINE zrccx [Type=MAC]
+zrccx ; # Run Container Command eXecution !! 
+	write "start Run Container Command eXecution",!
+		,"server = localhost,  port = 6666",!
+		
+	set port=6666
+		, tcp="|TCP|"_port
+		, stop=0
+	open tcp:("127.0.0.1":port):2
+	else  write " eXecutor is not reachable ",!!  quit
+	write "Enter bash command [?=dump logfile, .=exit, ***=stop executor & exit]",!,"?"
+act
+	use 0 read "?> :",cmd,!,"?"
+	if cmd="***" set cmd="###stop###",stop=2
+	else  if cmd="." set cmd="#",stop=1
+	else  if cmd="?" do dump goto act
+	else  if cmd="" goto act
+	use tcp write cmd,! 
+	if stop close tcp quit
+	goto act 
+	
+dump	;; view log file
+	set str=##class(%Stream.FileCharacter).%New()
+	set sc=str.LinkToFile("/tmp/rccx.log")
+	while 'str.AtEnd {set lin=str.ReadLine() write !,"$>",lin }
+	write !,"$> *************** done **************",!!,"?"
+        kill str quit  
